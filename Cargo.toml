@@ -1,0 +1,6 @@
+[package]
+name = "map_macro"
+version = "0.1.0"
+authors = ["Kai Patrick <thiskaiguy@gmail.com>"]
+
+[dependencies]
