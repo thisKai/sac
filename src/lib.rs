@@ -86,6 +86,14 @@ mod tests {
         }
 
         #[test]
+        fn empty_heap_allocated_string() {
+            let actual: Vec<String> = sac![];
+            let expected: Vec<String> = vec![];
+
+            assert_eq!(expected, actual);
+        }
+
+        #[test]
         fn one_item() {
             let actual: Vec<_> = sac![0];
             let expected = vec![0];
@@ -227,6 +235,14 @@ mod tests {
         fn empty() {
             let actual: HashMap<(), ()> = sac![];
             let expected = HashMap::new();
+
+            assert_eq!(expected, actual);
+        }
+
+        #[test]
+        fn empty_heap_allocated_string() {
+            let actual: HashMap<String, String> = sac![];
+            let expected: HashMap<String, String> = HashMap::new();
 
             assert_eq!(expected, actual);
         }
