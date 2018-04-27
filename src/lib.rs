@@ -1,14 +1,3 @@
-use std::iter::FromIterator;
-
-pub fn mut_options_slice_to_collection<T, C: FromIterator<T>>(slice: &mut [Option<T>]) -> C {
-    use std::mem;
-    slice
-        .iter_mut()
-        .map(|item| mem::replace(item, None))
-        .map(|item| item.unwrap())
-        .collect()
-}
-
 #[macro_export]
 macro_rules! map {
     ( $($key:tt : $value: expr),+ ) => {{
@@ -22,6 +11,17 @@ macro_rules! map {
     ( @item $key:expr, $value:expr ) => {
         ($key, $value);
     };
+}
+
+use std::iter::FromIterator;
+
+pub fn mut_options_slice_to_collection<T, C: FromIterator<T>>(slice: &mut [Option<T>]) -> C {
+    use std::mem;
+    slice
+        .iter_mut()
+        .map(|item| mem::replace(item, None))
+        .map(|item| item.unwrap())
+        .collect()
 }
 
 #[cfg(test)]
