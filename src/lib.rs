@@ -1,7 +1,7 @@
 /// # Examples
 ///
 /// ```
-/// #[macro_use] extern crate map_macro;
+/// #[macro_use] extern crate sac;
 ///
 /// use std::collections::{
 ///     VecDeque,
