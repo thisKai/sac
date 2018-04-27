@@ -1,6 +1,6 @@
 /// # Examples
 ///
-/// ```no_run
+/// ```
 /// #[macro_use] extern crate map_macro;
 /// use std::collections::{
 ///     VecDeque,
