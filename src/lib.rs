@@ -115,4 +115,21 @@ mod tests {
 
         assert_eq!(expected, actual);
     }
+
+    #[test]
+    fn non_copy_values() {
+        #[derive(Debug, PartialEq)]
+        struct NotCopy;
+
+        let actual = map! {
+            0: NotCopy,
+        };
+        let expected = {
+            let mut expected = HashMap::with_capacity(4);
+            expected.insert(0, NotCopy);
+            expected
+        };
+
+        assert_eq!(expected, actual);
+    }
 }
