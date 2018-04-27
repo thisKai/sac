@@ -28,6 +28,9 @@
 /// ```
 #[macro_export]
 macro_rules! map {
+    () => {{
+        Default::default()
+    }};
     ( $($key:tt : $value:expr),+ ) => {
         map! { @map $( ($key, $value) ),+ }
     };
@@ -69,6 +72,14 @@ pub fn mut_options_slice_to_collection<T, C: FromIterator<T>>(slice: &mut [Optio
 #[cfg(test)]
 mod tests {
     mod seq {
+        #[test]
+        fn empty() {
+            let actual: Vec<()> = map![];
+            let expected: Vec<()> = vec![];
+
+            assert_eq!(expected, actual);
+        }
+
         #[test]
         fn one_item() {
             let actual: Vec<_> = map![0];
@@ -206,6 +217,14 @@ mod tests {
     }
     mod map {
         use std::collections::HashMap;
+
+        #[test]
+        fn empty() {
+            let actual: HashMap<(), ()> = map![];
+            let expected = HashMap::new();
+
+            assert_eq!(expected, actual);
+        }
 
         #[test]
         fn one_item_string_key() {
