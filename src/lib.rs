@@ -95,4 +95,24 @@ mod tests {
 
         assert_eq!(expected, actual);
     }
+
+    #[test]
+    fn number_keys() {
+        let actual = map! {
+            0: (),
+            1: (),
+            2: (),
+            3: (),
+        };
+        let expected = {
+            let mut expected = HashMap::with_capacity(4);
+            expected.insert(0, ());
+            expected.insert(1, ());
+            expected.insert(2, ());
+            expected.insert(3, ());
+            expected
+        };
+
+        assert_eq!(expected, actual);
+    }
 }
