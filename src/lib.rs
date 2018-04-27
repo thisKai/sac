@@ -33,6 +33,7 @@ macro_rules! map {
 
 use std::iter::FromIterator;
 
+#[doc(hidden)]
 pub fn mut_options_slice_to_collection<T, C: FromIterator<T>>(slice: &mut [Option<T>]) -> C {
     use std::mem;
     slice
