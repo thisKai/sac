@@ -1,5 +1,3 @@
-#![feature(macro_at_most_once_rep)]
-
 use std::iter::FromIterator;
 
 pub fn mut_options_slice_to_collection<T, C: FromIterator<T>>(slice: &mut [Option<T>]) -> C {
@@ -13,14 +11,14 @@ pub fn mut_options_slice_to_collection<T, C: FromIterator<T>>(slice: &mut [Optio
 
 #[macro_export]
 macro_rules! map {
-    (
-        $($key:tt : $value: expr),+
-        $(,)?
-    ) => {{
+    ( $($key:tt : $value: expr),+ ) => {{
         $crate::mut_options_slice_to_collection(&mut [
             $( Some(map!{ @item $key, $value }), )+
         ])
     }};
+    ( $($key:tt : $value: expr),+, ) => {
+        map!{ $($key : $value),+ }
+    };
     ( @item $key:expr, $value:expr ) => {
         ($key, $value);
     };
