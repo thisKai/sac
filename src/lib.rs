@@ -45,6 +45,142 @@ pub fn mut_options_slice_to_collection<T, C: FromIterator<T>>(slice: &mut [Optio
 
 #[cfg(test)]
 mod tests {
+    mod seq {
+        #[test]
+        fn one_item() {
+            let actual: Vec<_> = map![0];
+            let expected = vec![0];
+
+            assert_eq!(expected, actual);
+        }
+
+        #[test]
+        fn one_item_trailing_comma() {
+            let actual: Vec<_> = map![0,];
+            let expected = vec![0];
+
+            assert_eq!(expected, actual);
+        }
+
+        #[test]
+        fn many_items() {
+            let actual: Vec<_> = map![0, 1, 2, 3];
+            let expected = vec![0, 1, 2, 3];
+
+            assert_eq!(expected, actual);
+        }
+
+        #[test]
+        fn many_items_trailing_comma() {
+            let actual: Vec<_> = map![0, 1, 2, 3,];
+            let expected = vec![0, 1, 2, 3];
+
+            assert_eq!(expected, actual);
+        }
+
+        #[test]
+        fn non_copy_values() {
+            #[derive(Debug, PartialEq)]
+            struct NotCopy;
+
+            let actual: Vec<_> = map![NotCopy];
+            let expected = vec![NotCopy];
+
+            assert_eq!(expected, actual);
+        }
+
+        #[test]
+        fn heap_allocated_string_values() {
+            let actual: Vec<_> = map![String::from("value")];
+            let expected = vec![String::from("value")];
+
+            assert_eq!(expected, actual);
+        }
+
+        #[test]
+        fn more_than_32_items() {
+            let actual: Vec<_> = map![
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+            ];
+            let expected = vec![
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+                (),
+            ];
+
+            assert_eq!(expected, actual);
+        }
+    }
     mod map {
         use std::collections::HashMap;
 
