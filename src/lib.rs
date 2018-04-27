@@ -13,37 +13,37 @@
 ///     BinaryHeap,
 /// };
 ///
-/// let vec: Vec<_> = map![1, 2, 3, 4];
+/// let vec: Vec<_> = sac![1, 2, 3, 4];
 ///
-/// let vec_deque: VecDeque<_> = map![1, 2, 3, 4];
+/// let vec_deque: VecDeque<_> = sac![1, 2, 3, 4];
 ///
-/// let linked_list: LinkedList<_> = map![1, 2, 3, 4];
+/// let linked_list: LinkedList<_> = sac![1, 2, 3, 4];
 ///
-/// let binary_heap: BinaryHeap<_> = map![1, 2, 3, 4];
+/// let binary_heap: BinaryHeap<_> = sac![1, 2, 3, 4];
 ///
-/// let hash_map: HashMap<_, _> = map! {
+/// let hash_map: HashMap<_, _> = sac! {
 ///     "key0": "value0",
 ///     "key1": "value1",
 /// };
 ///
-/// let b_tree_map: BTreeMap<_, _> = map! {
+/// let b_tree_map: BTreeMap<_, _> = sac! {
 ///     "key0": "value0",
 ///     "key1": "value1",
 /// };
 /// ```
 #[macro_export]
-macro_rules! map {
+macro_rules! sac {
     () => {{
         Default::default()
     }};
     ( $($key:tt : $value:expr),+ ) => {
-        map! { @map $( ($key, $value) ),+ }
+        sac! { @map $( ($key, $value) ),+ }
     };
     ( $($key:tt : $value: expr),+, ) => {
-        map! { @map $( ($key, $value) ),+ }
+        sac! { @map $( ($key, $value) ),+ }
     };
     ( $($item:expr),+, ) => {
-        map![ $($item),+ ]
+        sac![ $($item),+ ]
     };
     ( $($item:expr),+ ) => {{
         $crate::mut_options_slice_to_collection(&mut [
@@ -53,8 +53,8 @@ macro_rules! map {
         ])
     }};
     ( @map $( ($key:expr, $value: expr) ),+ ) => {
-        map! {
-            $( map!(@item $key, $value) ),+
+        sac! {
+            $( sac!(@item $key, $value) ),+
         }
     };
     ( @item $key:expr, $value:expr ) => {
@@ -82,7 +82,7 @@ mod tests {
     mod seq {
         #[test]
         fn empty() {
-            let actual: Vec<()> = map![];
+            let actual: Vec<()> = sac![];
             let expected: Vec<()> = vec![];
 
             assert_eq!(expected, actual);
@@ -90,7 +90,7 @@ mod tests {
 
         #[test]
         fn one_item() {
-            let actual: Vec<_> = map![0];
+            let actual: Vec<_> = sac![0];
             let expected = vec![0];
 
             assert_eq!(expected, actual);
@@ -98,7 +98,7 @@ mod tests {
 
         #[test]
         fn one_item_trailing_comma() {
-            let actual: Vec<_> = map![0,];
+            let actual: Vec<_> = sac![0,];
             let expected = vec![0];
 
             assert_eq!(expected, actual);
@@ -106,7 +106,7 @@ mod tests {
 
         #[test]
         fn many_items() {
-            let actual: Vec<_> = map![0, 1, 2, 3];
+            let actual: Vec<_> = sac![0, 1, 2, 3];
             let expected = vec![0, 1, 2, 3];
 
             assert_eq!(expected, actual);
@@ -114,7 +114,7 @@ mod tests {
 
         #[test]
         fn many_items_trailing_comma() {
-            let actual: Vec<_> = map![0, 1, 2, 3,];
+            let actual: Vec<_> = sac![0, 1, 2, 3,];
             let expected = vec![0, 1, 2, 3];
 
             assert_eq!(expected, actual);
@@ -125,7 +125,7 @@ mod tests {
             #[derive(Debug, PartialEq)]
             struct NotCopy;
 
-            let actual: Vec<_> = map![NotCopy];
+            let actual: Vec<_> = sac![NotCopy];
             let expected = vec![NotCopy];
 
             assert_eq!(expected, actual);
@@ -133,7 +133,7 @@ mod tests {
 
         #[test]
         fn heap_allocated_string_values() {
-            let actual: Vec<_> = map![String::from("value")];
+            let actual: Vec<_> = sac![String::from("value")];
             let expected = vec![String::from("value")];
 
             assert_eq!(expected, actual);
@@ -141,7 +141,7 @@ mod tests {
 
         #[test]
         fn more_than_32_items() {
-            let actual: Vec<_> = map![
+            let actual: Vec<_> = sac![
                 (),
                 (),
                 (),
@@ -228,7 +228,7 @@ mod tests {
 
         #[test]
         fn empty() {
-            let actual: HashMap<(), ()> = map![];
+            let actual: HashMap<(), ()> = sac![];
             let expected = HashMap::new();
 
             assert_eq!(expected, actual);
@@ -236,7 +236,7 @@ mod tests {
 
         #[test]
         fn one_item_string_key() {
-            let actual = map! {
+            let actual = sac! {
                 "key1": ()
             };
             let expected = {
@@ -250,7 +250,7 @@ mod tests {
 
         #[test]
         fn one_item_string_key_trailing_comma() {
-            let actual = map! {
+            let actual = sac! {
                 "key1": (),
             };
             let expected = {
@@ -264,7 +264,7 @@ mod tests {
 
         #[test]
         fn many_items_string_key() {
-            let actual = map! {
+            let actual = sac! {
                 "key1": (),
                 "key2": (),
                 "key3": (),
@@ -284,7 +284,7 @@ mod tests {
 
         #[test]
         fn many_items_string_key_trailing_comma() {
-            let actual = map! {
+            let actual = sac! {
                 "key1": (),
                 "key2": (),
                 "key3": (),
@@ -304,7 +304,7 @@ mod tests {
 
         #[test]
         fn number_keys() {
-            let actual = map! {
+            let actual = sac! {
                 0: (),
                 1: (),
                 2: (),
@@ -327,7 +327,7 @@ mod tests {
             #[derive(Debug, PartialEq)]
             struct NotCopy;
 
-            let actual = map! {
+            let actual = sac! {
                 0: NotCopy,
             };
             let expected = {
@@ -341,7 +341,7 @@ mod tests {
 
         #[test]
         fn heap_allocated_string_values() {
-            let actual = map! {
+            let actual = sac! {
                 0: "value".to_string(),
             };
             let expected = {
@@ -355,7 +355,7 @@ mod tests {
 
         #[test]
         fn more_than_32_items() {
-            let actual = map! {
+            let actual = sac! {
                 0: (),
                 1: (),
                 2: (),
