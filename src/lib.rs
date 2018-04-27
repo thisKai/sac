@@ -70,7 +70,10 @@ pub fn mut_options_slice_to_collection<T, C: FromIterator<T>>(slice: &mut [Optio
     slice
         .iter_mut()
         .map(|item| mem::replace(item, None))
-        .map(|item| item.unwrap())
+        .map(|item| match item {
+            Some(item) => item,
+            None => unreachable!(),
+        })
         .collect()
 }
 
