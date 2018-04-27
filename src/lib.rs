@@ -2,6 +2,7 @@
 ///
 /// ```
 /// #[macro_use] extern crate map_macro;
+///
 /// use std::collections::{
 ///     VecDeque,
 ///     LinkedList,
@@ -13,14 +14,18 @@
 /// };
 ///
 /// let vec: Vec<_> = map![1, 2, 3, 4];
+///
 /// let vec_deque: VecDeque<_> = map![1, 2, 3, 4];
+///
 /// let linked_list: LinkedList<_> = map![1, 2, 3, 4];
+///
 /// let binary_heap: BinaryHeap<_> = map![1, 2, 3, 4];
 ///
 /// let hash_map: HashMap<_, _> = map! {
 ///     "key0": "value0",
 ///     "key1": "value1",
 /// };
+///
 /// let b_tree_map: BTreeMap<_, _> = map! {
 ///     "key0": "value0",
 ///     "key1": "value1",
