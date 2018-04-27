@@ -132,4 +132,90 @@ mod tests {
 
         assert_eq!(expected, actual);
     }
+
+    #[test]
+    fn more_than_32_items() {
+        let actual = map! {
+            0: (),
+            1: (),
+            2: (),
+            3: (),
+            4: (),
+            5: (),
+            6: (),
+            7: (),
+            8: (),
+            9: (),
+            10: (),
+            11: (),
+            12: (),
+            13: (),
+            14: (),
+            15: (),
+            16: (),
+            17: (),
+            18: (),
+            19: (),
+            20: (),
+            21: (),
+            22: (),
+            23: (),
+            24: (),
+            25: (),
+            26: (),
+            27: (),
+            28: (),
+            29: (),
+            30: (),
+            31: (),
+            32: (),
+            33: (),
+            34: (),
+            35: (),
+            36: (),
+        };
+        let expected = {
+            let mut expected = HashMap::with_capacity(4);
+            expected.insert(0, ());
+            expected.insert(1, ());
+            expected.insert(2, ());
+            expected.insert(3, ());
+            expected.insert(4, ());
+            expected.insert(5, ());
+            expected.insert(6, ());
+            expected.insert(7, ());
+            expected.insert(8, ());
+            expected.insert(9, ());
+            expected.insert(10, ());
+            expected.insert(11, ());
+            expected.insert(12, ());
+            expected.insert(13, ());
+            expected.insert(14, ());
+            expected.insert(15, ());
+            expected.insert(16, ());
+            expected.insert(17, ());
+            expected.insert(18, ());
+            expected.insert(19, ());
+            expected.insert(20, ());
+            expected.insert(21, ());
+            expected.insert(22, ());
+            expected.insert(23, ());
+            expected.insert(24, ());
+            expected.insert(25, ());
+            expected.insert(26, ());
+            expected.insert(27, ());
+            expected.insert(28, ());
+            expected.insert(29, ());
+            expected.insert(30, ());
+            expected.insert(31, ());
+            expected.insert(32, ());
+            expected.insert(33, ());
+            expected.insert(34, ());
+            expected.insert(35, ());
+            expected.insert(36, ());
+            expected
+        };
+
+        assert_eq!(expected, actual);
+    }
 }
