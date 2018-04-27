@@ -33,9 +33,6 @@
 /// ```
 #[macro_export]
 macro_rules! sac {
-    () => {{
-        Default::default()
-    }};
     ( $($key:tt : $value:expr),+ ) => {
         sac! { @map $( ($key, $value) ),+ }
     };
@@ -45,11 +42,11 @@ macro_rules! sac {
     ( $($item:expr),+, ) => {
         sac![ $($item),+ ]
     };
-    ( $($item:expr),+ ) => {{
+    ( $($item:expr),* ) => {{
         $crate::mut_options_slice_to_collection(&mut [
             $(
                 Some( $item ),
-            )+
+            )*
         ])
     }};
     ( @map $( ($key:expr, $value: expr) ),+ ) => {
