@@ -134,6 +134,20 @@ mod tests {
     }
 
     #[test]
+    fn heap_allocates_string_values() {
+        let actual = map! {
+            0: "value".to_string(),
+        };
+        let expected = {
+            let mut expected = HashMap::with_capacity(4);
+            expected.insert(0, "value".to_string());
+            expected
+        };
+
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
     fn more_than_32_items() {
         let actual = map! {
             0: (),
