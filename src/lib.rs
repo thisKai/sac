@@ -1,27 +1,29 @@
 #![feature(macro_at_most_once_rep)]
 
+use std::iter::FromIterator;
+
+pub fn mut_options_slice_to_collection<T, C: FromIterator<T>>(slice: &mut [Option<T>]) -> C {
+    use std::mem;
+    slice
+        .iter_mut()
+        .map(|item| mem::replace(item, None))
+        .map(|item| item.unwrap())
+        .collect()
+}
+
 #[macro_export]
 macro_rules! map {
     (
         $($key:tt : $value: expr),+
         $(,)?
     ) => {{
-        let map_capacity = map!(@count $($key),*);
-
-        let mut map_instance = ::std::collections::HashMap::with_capacity(map_capacity);
-
-        $( map!{ @item map_instance, $key, $value } )+
-
-        map_instance
+        $crate::mut_options_slice_to_collection(&mut [
+            $( Some(map!{ @item $key, $value }), )+
+        ])
     }};
-    ( @item $map:ident, $key:expr, $value:expr ) => {
-        $map.insert($key, $value);
+    ( @item $key:expr, $value:expr ) => {
+        ($key, $value);
     };
-    ( @count_unit $($x:tt)* ) => { () };
-    ( @count $($rest:expr),*) => {
-        <[()]>::len(&[$(map!(@count_unit $rest)),*])
-    };
-
 }
 
 #[cfg(test)]
