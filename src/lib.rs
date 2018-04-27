@@ -1,4 +1,13 @@
 /// # Examples
+/// # Empty
+/// ```
+/// #[macro_use] extern crate sac;
+///
+/// use std::collections::HashMap;
+///
+/// let vec: Vec<()> = sac![];
+/// let map: HashMap<(), ()> = sac! {};
+/// ```
 ///
 /// # Lists
 /// ```
