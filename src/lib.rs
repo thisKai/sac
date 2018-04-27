@@ -1,5 +1,6 @@
 /// # Examples
 ///
+/// # Lists
 /// ```
 /// #[macro_use] extern crate sac;
 ///
@@ -8,8 +9,6 @@
 ///     LinkedList,
 ///     HashSet,
 ///     BTreeSet,
-///     HashMap,
-///     BTreeMap,
 ///     BinaryHeap,
 /// };
 ///
@@ -20,6 +19,16 @@
 /// let linked_list: LinkedList<_> = sac![1, 2, 3, 4];
 ///
 /// let binary_heap: BinaryHeap<_> = sac![1, 2, 3, 4];
+/// ```
+///
+/// # Maps
+/// ```
+/// #[macro_use] extern crate sac;
+///
+/// use std::collections::{
+///     HashMap,
+///     BTreeMap,
+/// };
 ///
 /// let hash_map: HashMap<_, _> = sac! {
 ///     "key0": "value0",
