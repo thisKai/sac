@@ -154,7 +154,7 @@ mod tests {
         }
 
         #[test]
-        fn heap_allocates_string_values() {
+        fn heap_allocated_string_values() {
             let actual = map! {
                 0: "value".to_string(),
             };
