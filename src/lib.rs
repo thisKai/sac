@@ -18,13 +18,26 @@
 /// ```
 #[macro_export]
 macro_rules! map {
-    ( $($key:tt : $value: expr),+ ) => {{
+    ( $($key:tt : $value:expr),+ ) => {
+        map! { @map $( ($key, $value) ),+ }
+    };
+    ( $($key:tt : $value: expr),+, ) => {
+        map! { @map $( ($key, $value) ),+ }
+    };
+    ( $($item:expr),+, ) => {
+        map![ $($item),+ ]
+    };
+    ( $($item:expr),+ ) => {{
         $crate::mut_options_slice_to_collection(&mut [
-            $( Some(map!{ @item $key, $value }), )+
+            $(
+                Some( $item ),
+            )+
         ])
     }};
-    ( $($key:tt : $value: expr),+, ) => {
-        map!{ $($key : $value),+ }
+    ( @map $( ($key:expr, $value: expr) ),+ ) => {
+        map! {
+            $( map!(@item $key, $value) ),+
+        }
     };
     ( @item $key:expr, $value:expr ) => {
         ($key, $value);
