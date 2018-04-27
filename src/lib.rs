@@ -1,3 +1,21 @@
+/// # Examples
+///
+/// ```no_run
+/// #[macro_use] extern crate map_macro;
+/// use std::collections::{
+///     HashMap,
+///     BTreeMap,
+/// };
+///
+/// let hash_map: HashMap<_, _> = map! {
+///     "key0": "value0",
+///     "key1": "value1",
+/// };
+/// let b_tree_map: BTreeMap<_, _> = map! {
+///     "key0": "value0",
+///     "key1": "value1",
+/// };
+/// ```
 #[macro_export]
 macro_rules! map {
     ( $($key:tt : $value: expr),+ ) => {{
