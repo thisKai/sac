@@ -1,17 +1,18 @@
 /// # Examples
 /// # Empty
 /// ```
-/// #[macro_use] extern crate sac;
+/// # #[macro_use] extern crate sac; fn main() {
 ///
 /// use std::collections::HashMap;
 ///
 /// let vec: Vec<()> = sac![];
 /// let map: HashMap<(), ()> = sac! {};
+/// # }
 /// ```
 ///
 /// # Lists
 /// ```
-/// #[macro_use] extern crate sac;
+/// # #[macro_use] extern crate sac; fn main() {
 ///
 /// use std::collections::{
 ///     VecDeque,
@@ -28,11 +29,12 @@
 /// let linked_list: LinkedList<_> = sac![1, 2, 3, 4];
 ///
 /// let binary_heap: BinaryHeap<_> = sac![1, 2, 3, 4];
+/// # }
 /// ```
 ///
 /// # Maps
 /// ```
-/// #[macro_use] extern crate sac;
+/// # #[macro_use] extern crate sac; fn main() {
 ///
 /// use std::collections::{
 ///     HashMap,
@@ -48,6 +50,7 @@
 ///     "key0": "value0",
 ///     "key1": "value1",
 /// };
+/// # }
 /// ```
 #[macro_export]
 macro_rules! sac {
