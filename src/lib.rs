@@ -97,7 +97,7 @@ pub fn mut_options_slice_to_collection<T, C: FromIterator<T>>(slice: &mut [Optio
 
 #[cfg(test)]
 mod tests {
-    mod seq {
+    mod array {
         #[test]
         fn empty() {
             let actual: Vec<()> = sac![];
