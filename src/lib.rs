@@ -488,5 +488,19 @@ mod tests {
 
             assert_eq!(expected, actual);
         }
+
+        #[test]
+        fn heap_allocated_string_key() {
+            let actual: HashMap<String, _> = sac!{
+                (String::from("key")): (),
+            };
+            let expected = {
+                let mut expected = HashMap::with_capacity(2);
+                expected.insert(String::from("key"), ());
+                expected
+            };
+
+            assert_eq!(expected, actual);
+        }
     }
 }
