@@ -472,5 +472,21 @@ mod tests {
 
             assert_eq!(expected, actual);
         }
+
+        #[test]
+        fn expr_key() {
+            let actual: HashMap<_, _> = sac!{
+                (1 + 1): (),
+                (10 + 360): (),
+            };
+            let expected = {
+                let mut expected = HashMap::with_capacity(2);
+                expected.insert(1 + 1, ());
+                expected.insert(10 + 360, ());
+                expected
+            };
+
+            assert_eq!(expected, actual);
+        }
     }
 }
