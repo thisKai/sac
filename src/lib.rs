@@ -490,6 +490,23 @@ mod tests {
         }
 
         #[test]
+        fn var_key() {
+            let (key1, key2) = (1, 2);
+            let actual: HashMap<_, _> = sac!{
+                key1: (),
+                key2: (),
+            };
+            let expected = {
+                let mut expected = HashMap::with_capacity(2);
+                expected.insert(key1, ());
+                expected.insert(key2, ());
+                expected
+            };
+
+            assert_eq!(expected, actual);
+        }
+
+        #[test]
         fn heap_allocated_string_key() {
             let actual: HashMap<String, _> = sac!{
                 (String::from("key")): (),
