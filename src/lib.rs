@@ -1,3 +1,5 @@
+pub mod iterator;
+
 /// # Examples
 /// # Empty
 /// ```
