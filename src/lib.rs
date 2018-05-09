@@ -66,11 +66,11 @@ macro_rules! sac {
         sac![ $($item),+ ]
     };
     ( $($item:expr),* ) => {{
-        $crate::mut_options_slice_to_collection(&mut [
+        $crate::iterator::mut_options_slice_to_iterator(&mut [
             $(
                 Some( $item ),
             )*
-        ])
+        ]).collect()
     }};
     ( @map $( ($key:expr, $value: expr) ),+ ) => {
         sac! {
@@ -80,21 +80,6 @@ macro_rules! sac {
     ( @item $key:expr, $value:expr ) => {
         ($key, $value);
     };
-}
-
-use std::iter::FromIterator;
-
-#[doc(hidden)]
-pub fn mut_options_slice_to_collection<T, C: FromIterator<T>>(slice: &mut [Option<T>]) -> C {
-    use std::mem;
-    slice
-        .iter_mut()
-        .map(|item| mem::replace(item, None))
-        .map(|item| match item {
-            Some(item) => item,
-            None => unreachable!(),
-        })
-        .collect()
 }
 
 #[cfg(test)]
