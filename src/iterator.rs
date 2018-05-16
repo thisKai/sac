@@ -1,10 +1,8 @@
-use std::{iter::Map, slice::IterMut};
+use std::{iter::FilterMap, slice::IterMut};
 
 #[doc(hidden)]
 #[derive(Debug)]
-pub struct Iter<'a, T: 'a>(
-    Map<Map<IterMut<'a, Option<T>>, fn(&'a mut Option<T>) -> Option<T>>, fn(Option<T>) -> T>,
-);
+pub struct Iter<'a, T: 'a>(FilterMap<IterMut<'a, Option<T>>, fn(&'a mut Option<T>) -> Option<T>>);
 
 impl<'a, T> Iterator for Iter<'a, T> {
     type Item = T;
@@ -18,20 +16,12 @@ pub fn mut_options_slice_to_iterator<'a, T>(slice: &'a mut [Option<T>]) -> Iter<
     Iter(
         slice
             .iter_mut()
-            .map(extract_owned_option as fn(&'a mut Option<T>) -> Option<T>)
-            .map(extract_inner as fn(Option<T>) -> T),
+            .filter_map(extract_owned_option as fn(&'a mut Option<T>) -> Option<T>),
     )
 }
 
-fn extract_owned_option<T>(item: &mut Option<T>) -> Option<T> {
-    use std::mem;
-    mem::replace(item, None)
-}
-fn extract_inner<T>(item: Option<T>) -> T {
-    match item {
-        Some(item) => item,
-        None => unreachable!(),
-    }
+fn extract_owned_option<T>(mut_option_ref: &mut Option<T>) -> Option<T> {
+    mut_option_ref.take()
 }
 
 #[cfg(test)]
