@@ -4,12 +4,12 @@ description = "A macro for constructing collections"
 version = "0.2.1"
 licence = "MIT"
 authors = ["Kai Patrick <thiskaiguy@gmail.com>"]
-build = "build.rs"
+# build = "build.rs"
 
 [dependencies]
 
-[build-dependencies]
-skeptic = "0.13"
+# [build-dependencies]
+# skeptic = "0.13"
 
-[dev-dependencies]
-skeptic = "0.13"
+# [dev-dependencies]
+# skeptic = "0.13"
