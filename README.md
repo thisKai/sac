@@ -28,10 +28,10 @@ let container = VecWrapper(sac![1, 2, 3, 4]);
 Trailing commas are also supported:
 ```rust,skt-example
 let vec: Vec<_> = sac![
-  1,
-  2,
-  3,
-  4,
+    1,
+    2,
+    3,
+    4,
 ];
 
 assert_eq!(vec, vec![1, 2, 3, 4]);
@@ -40,13 +40,13 @@ assert_eq!(vec, vec![1, 2, 3, 4]);
 The macro can also construct maps (e.g. [HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html)) with struct-like syntax:
 ```rust,skt-example
 let map_with_syntax_sugar: HashMap<_, _> = sac! {
-  "foo": "bar",
-  "marco": "polo",
+    "foo": "bar",
+    "marco": "polo",
 };
 
 let map_without_syntax_sugar: HashMap<_, _> = sac! [
-  ("foo", "bar"),
-  ("marco", "polo"),
+    ("foo", "bar"),
+    ("marco", "polo"),
 ];
 
 assert_eq!(map_with_syntax_sugar, map_without_syntax_sugar);
@@ -58,7 +58,7 @@ let key = "foo";
 let value = "bar";
 
 let map: HashMap<_, _> = sac! {
-  key: value,
+    key: value,
 };
 
 assert_eq!(map, sac! { "foo": "bar" });
@@ -67,8 +67,8 @@ assert_eq!(map, sac! { "foo": "bar" });
 To use expressions as keys, surround them with parentheses or braces:
 ```rust,skt-example
 let map: HashMap<_, _> = sac! {
-  (1 + 1): "two",
-  {2i32.pow(2)}: "four",
+    (1 + 1): "two",
+    {2i32.pow(2)}: "four",
 };
 
 assert_eq!(map, sac! { 2: "two", 4: "four" });
