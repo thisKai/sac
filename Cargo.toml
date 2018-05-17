@@ -5,7 +5,7 @@ version = "0.2.1"
 license = "MIT"
 authors = ["Kai Patrick <thiskaiguy@gmail.com>"]
 repository = "https://github.com/thisKai/sac"
-# build = "build.rs"
+# build = "build_skeptic_tests.rs"
 
 [dependencies]
 
