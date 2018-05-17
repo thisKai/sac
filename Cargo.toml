@@ -1,7 +1,7 @@
 [package]
 name = "sac"
 description = "A macro for constructing collections"
-version = "0.2.1"
+version = "0.2.2"
 readme = "README.md"
 license = "MIT"
 authors = ["Kai Patrick <thiskaiguy@gmail.com>"]
