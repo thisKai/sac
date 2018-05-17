@@ -1,14 +1,15 @@
-# Sac
+# sac
+
 A rust macro that will construct an instance of any collection that implements [FromIterator](https://doc.rust-lang.org/std/iter/trait.FromIterator.html).
 
-### Cargo.toml
+## Cargo.toml
 ```toml
 [dependencies]
 sac = "0.2"
 ```
 
-### main.rs
-```rust,skt-example-empty
+## main.rs
+```rust
 #[macro_use]
 extern crate sac;
 
@@ -19,14 +20,16 @@ fn main() {
 ```
 
 No type annotations are needed if the compiler can infer the types:
-```rust,skt-example
+
+```rust
 struct VecWrapper(Vec<i32>);
 
 let container = VecWrapper(sac![1, 2, 3, 4]);
 ```
 
 Trailing commas are also supported:
-```rust,skt-example
+
+```rust
 let vec: Vec<_> = sac![
     1,
     2,
@@ -38,7 +41,10 @@ assert_eq!(vec, vec![1, 2, 3, 4]);
 ```
 
 The macro can also construct maps (e.g. [HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html)) with struct-like syntax:
-```rust,skt-example
+
+```rust
+use std::collections::HashMap;
+
 let map_with_syntax_sugar: HashMap<_, _> = sac! {
     "foo": "bar",
     "marco": "polo",
@@ -53,7 +59,10 @@ assert_eq!(map_with_syntax_sugar, map_without_syntax_sugar);
 ```
 
 Variables can be used as keys and values:
-```rust,skt-example
+
+```rust
+use std::collections::HashMap;
+
 let key = "foo";
 let value = "bar";
 
@@ -65,7 +74,10 @@ assert_eq!(map, sac! { "foo": "bar" });
 ```
 
 To use expressions as keys, surround them with parentheses or braces:
-```rust,skt-example
+
+```rust
+use std::collections::HashMap;
+
 let map: HashMap<_, _> = sac! {
     (1 + 1): "two",
     {2i32.pow(2)}: "four",
@@ -73,3 +85,5 @@ let map: HashMap<_, _> = sac! {
 
 assert_eq!(map, sac! { 2: "two", 4: "four" });
 ```
+
+License: MIT
