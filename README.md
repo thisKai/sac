@@ -1,4 +1,7 @@
 # sac
+[![Crates.io](https://img.shields.io/crates/v/sac.svg)](https://crates.io/crates/sac)
+[![Documentation](https://docs.rs/sac/badge.svg)](https://docs.rs/sac)
+![MIT License](https://img.shields.io/crates/l/sac.svg)
 
 A rust macro that will construct an instance of any collection that implements [FromIterator](https://doc.rust-lang.org/std/iter/trait.FromIterator.html).
 
@@ -85,5 +88,3 @@ let map: HashMap<_, _> = sac! {
 
 assert_eq!(map, sac! { 2: "two", 4: "four" });
 ```
-
-License: MIT
