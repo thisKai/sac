@@ -2,9 +2,9 @@ use std::{iter::FilterMap, slice::IterMut};
 
 #[doc(hidden)]
 #[derive(Debug)]
-pub struct Iter<'a, T: 'a>(FilterMap<IterMut<'a, Option<T>>, fn(&'a mut Option<T>) -> Option<T>>);
+pub struct LazySac<'a, T: 'a>(FilterMap<IterMut<'a, Option<T>>, fn(&'a mut Option<T>) -> Option<T>>);
 
-impl<'a, T> Iterator for Iter<'a, T> {
+impl<'a, T> Iterator for LazySac<'a, T> {
     type Item = T;
     fn next(&mut self) -> Option<Self::Item> {
         self.0.next()
@@ -12,8 +12,8 @@ impl<'a, T> Iterator for Iter<'a, T> {
 }
 
 #[doc(hidden)]
-pub fn mut_options_slice_to_iterator<'a, T>(slice: &'a mut [Option<T>]) -> Iter<'a, T> {
-    Iter(
+pub fn mut_options_slice_to_iterator<'a, T>(slice: &'a mut [Option<T>]) -> LazySac<'a, T> {
+    LazySac(
         slice
             .iter_mut()
             .filter_map(|mut_option_ref| mut_option_ref.take()),
