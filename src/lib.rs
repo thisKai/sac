@@ -164,7 +164,7 @@ macro_rules! sac {
         sac![ $($item),+ ]
     };
     ( $($item:expr),* ) => {{
-        $crate::iterator::mut_options_slice_to_iterator(&mut [
+        $crate::iterator::LazySac::from_slice(&mut [
             $(
                 Some( $item ),
             )*

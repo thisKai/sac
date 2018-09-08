@@ -4,20 +4,21 @@ use std::{iter::FilterMap, slice::IterMut};
 #[derive(Debug)]
 pub struct LazySac<'a, T: 'a>(FilterMap<IterMut<'a, Option<T>>, fn(&'a mut Option<T>) -> Option<T>>);
 
+impl<'a, T> LazySac<'a, T> {
+    pub fn from_slice(slice: &'a mut [Option<T>]) -> Self {
+        LazySac(
+            slice
+                .iter_mut()
+                .filter_map(|mut_option_ref| mut_option_ref.take()),
+        )
+    }
+}
+
 impl<'a, T> Iterator for LazySac<'a, T> {
     type Item = T;
     fn next(&mut self) -> Option<Self::Item> {
         self.0.next()
     }
-}
-
-#[doc(hidden)]
-pub fn mut_options_slice_to_iterator<'a, T>(slice: &'a mut [Option<T>]) -> LazySac<'a, T> {
-    LazySac(
-        slice
-            .iter_mut()
-            .filter_map(|mut_option_ref| mut_option_ref.take()),
-    )
 }
 
 #[cfg(test)]
@@ -30,7 +31,7 @@ mod tests {
 
         let slice = &mut buf[..];
 
-        let iterator = mut_options_slice_to_iterator(slice);
+        let iterator = LazySac::from_slice(slice);
 
         let collection: Vec<String> = iterator.collect();
 
@@ -43,7 +44,7 @@ mod tests {
 
         let slice = &mut buf[..];
 
-        let iterator = mut_options_slice_to_iterator(slice);
+        let iterator = LazySac::from_slice(slice);
 
         let collection: Vec<String> = iterator.collect();
 
