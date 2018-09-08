@@ -154,25 +154,30 @@ pub mod iterator;
 /// ```
 #[macro_export]
 macro_rules! sac {
+    ($($args:tt)*) => { lazy_sac!($($args)*).collect() };
+}
+
+#[macro_export]
+macro_rules! lazy_sac {
     ( $($key:tt : $value:expr),+ ) => {
-        sac! { @map $( ($key, $value) ),+ }
+        lazy_sac! { @map $( ($key, $value) ),+ }
     };
     ( $($key:tt : $value: expr),+, ) => {
-        sac! { @map $( ($key, $value) ),+ }
+        lazy_sac! { @map $( ($key, $value) ),+ }
     };
     ( $($item:expr),+, ) => {
-        sac![ $($item),+ ]
+        lazy_sac![ $($item),+ ]
     };
     ( $($item:expr),* ) => {{
         $crate::iterator::LazySac::from_slice(&mut [
             $(
                 Some( $item ),
             )*
-        ]).collect()
+        ])
     }};
     ( @map $( ($key:expr, $value: expr) ),+ ) => {
-        sac! {
-            $( sac!(@item $key, $value) ),+
+        lazy_sac! {
+            $( lazy_sac!(@item $key, $value) ),+
         }
     };
     ( @item $key:expr, $value:expr ) => {
