@@ -16,12 +16,8 @@ pub fn mut_options_slice_to_iterator<'a, T>(slice: &'a mut [Option<T>]) -> Iter<
     Iter(
         slice
             .iter_mut()
-            .filter_map(extract_owned_option as fn(&'a mut Option<T>) -> Option<T>),
+            .filter_map(|mut_option_ref| mut_option_ref.take()),
     )
-}
-
-fn extract_owned_option<T>(mut_option_ref: &mut Option<T>) -> Option<T> {
-    mut_option_ref.take()
 }
 
 #[cfg(test)]
