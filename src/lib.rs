@@ -98,7 +98,7 @@ assert_eq!(map, sac! { 2: "two", 4: "four" });
 
 pub mod iterator;
 
-pub use iterator::LazySac;
+pub use crate::iterator::LazySac;
 
 /// # Examples
 /// # Empty
