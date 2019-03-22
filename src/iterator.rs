@@ -1,6 +1,6 @@
 use std::{iter::FilterMap, slice::IterMut};
 
-#[doc(hidden)]
+/// An iterator that can yield owned items
 #[derive(Debug)]
 pub struct LazySac<'a, T: 'a>(FilterMap<IterMut<'a, Option<T>>, fn(&'a mut Option<T>) -> Option<T>>);
 
