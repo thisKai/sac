@@ -159,6 +159,21 @@ macro_rules! sac {
     ($($args:tt)*) => { lazy_sac!($($args)*).collect() };
 }
 
+/// # Examples
+/// ```
+/// # #[macro_use] extern crate sac; fn main() {
+/// use std::collections::HashMap;
+///
+/// let iter = lazy_sac![1, 2, 3, 4];
+/// let vec: Vec<_> = iter.collect();
+///
+/// let map_iter = lazy_sac! {
+///     "key0": "value0",
+///     "key1": "value1",
+/// };
+/// let hash_map: HashMap<_, _> = map_iter.collect();
+/// # }
+/// ```
 #[macro_export]
 macro_rules! lazy_sac {
     ( $($key:tt : $value:expr),+ ) => {
